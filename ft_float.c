@@ -46,9 +46,36 @@ long int    ft_power(int a, int b)
     return ((long int)a);
 }
 
+/*
+** Функция сложения массивов
+*/
+
 void    ft_massive_summ(t_float *num, int temp_prt1, int temp_prt2)
 {
+    int i;
 
+    i = 0;
+    while (i < 4932)                                    //сложение целой части
+    {
+        num->prt1[i] += temp_prt1[i];
+        if (num->prt1[i] > 9)
+        {
+            num->prt1[i + 1] += num->prt1[i] / 10;
+            num->prt1[i] %= 10;    
+        }
+        ++i;
+    }
+    i = 16382;
+    while (i >= 0)                                      //сложение дробной части 
+    {
+        num->prt2[i] += temp_prt2[i];
+        if (num->prt2[i] > 9)
+        {
+            num->prt2[i - 1] += num->prt2[i] / 10;
+            num->prt2[i] %= 10;
+        }
+        --i;
+    }
 }
 
 /*
@@ -111,12 +138,44 @@ void    ft_long_ariphm(short int exp, t_float num)
     
 }
 
+char    *ft_print_float(t_float *num)
+{
+    int i;
+    int j;
+    int s;
+    char *str;
+
+    s = 0;
+    i = 4932;
+    j = 16382;
+    while (num->prt1[i] == 0)
+        --i;
+    while (num->prt2[j] == 0)
+        --j;
+    if (!(str = (char *)malloc(sizeof(char) * (i + j + 3))))
+        return (NULL);
+    while (s < i + 1)
+    {
+        str[s] = num->prt1[i - s];
+        ++s;
+    }
+    i = 0;
+    while (i <= j)
+    {
+        str[s] = num->prt2[i];
+        ++s;
+        ++i;
+    }
+    str[s] = '\0';
+    return (str);
+}
+
 /*
 ** проверяет маской мантиссу
 ** если встречает включенный бит, идет в длинную арифметику
 */
 
-void    ft_float(long double a)
+char    *ft_float(long double a)
 {
     t_print         divis;                               //деление числа на знак, мантиссу и экспоненту
     short int       exp;                                 //перезапись частей числа
@@ -139,6 +198,7 @@ void    ft_float(long double a)
         --exp;
         mant <<= 1;                                      //сдвигается бит мантиссы
     }
+    return (ft_print_float(num));
 }
 
 int main()
