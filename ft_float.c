@@ -6,13 +6,13 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 19:00:25 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/08 16:00:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/10 17:53:53 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h>
-#include "/Users/bjasper/bjasper/libft/libft.h"
+#include <stdlib.h>
 
 typedef struct              s_float
 {
@@ -24,13 +24,27 @@ typedef struct              s_float
 typedef union               s_print		    
 {
     long double             number;
-    struct                  byte
+    struct                 
     {
-        unsigned long       mant: 64;
-	    short int           exp: 15;
-	    unsigned int        sign: 1;
+        unsigned long       mant:64;
+	    short int           exp:15;
+	    unsigned int        sign:1;
     }                       t_byte;
 }						    t_print;
+
+void	ft_bzero(int *s, size_t n)
+{
+	int *str;
+
+	printf("c\n");
+    str = (int *)s;
+	while (n)
+	{
+		*str = 0;
+		str++;
+		n--;
+	}
+}
 
 /*
 ** функция возведения числа в положительную степень
@@ -39,6 +53,7 @@ typedef union               s_print
 
 long int    ft_power(int a, int b)
 {
+    printf("e\n");
     while (--b)
     {
         a *= a;
@@ -50,10 +65,11 @@ long int    ft_power(int a, int b)
 ** Функция сложения массивов
 */
 
-void    ft_massive_summ(t_float *num, int temp_prt1, int temp_prt2)
+void    ft_massive_summ(t_float *num, int *temp_prt1, int *temp_prt2)
 {
     int i;
 
+    printf("g\n");
     i = 0;
     while (i < 4932)                                    //сложение целой части
     {
@@ -90,8 +106,9 @@ void    ft_num_to_massive(t_float *num, long int temp, int power)
     int             temp_prt1[4932];                    //текущий массив целой части, который прибавляется к общему массиву
     int             temp_prt2[16383];                   //текущий массив дробной части, который прибавляется к общему массиву
 
-    ft_bzero(&temp_prt1, 4932);                         //обнуление текущих массивов
-    ft_bzero(&temp_prt2, 16383);
+    printf("f\n");
+    ft_bzero(temp_prt1, 4932);                          //обнуление текущих массивов
+    ft_bzero(temp_prt2, 16383);
     i = 0;
     if (power >= 0)                                     //запись в массив целой части
     {
@@ -125,6 +142,7 @@ void    ft_long_ariphm(short int exp, t_float num)
     long int temp;                                       //2 в степени экспоненты. временное число, которое надо записать в массив
     
     
+    printf("d\n");
     if((exp - 16383) >= 0)                               //положительная часть числа
     {
         temp = ft_power(2, exp - 16383);                 //возведение двойки в степень экспоненты
@@ -145,6 +163,7 @@ char    *ft_print_float(t_float *num)
     int s;
     char *str;
 
+    printf("h\n");
     s = 0;
     i = 4932;
     j = 16382;
@@ -180,32 +199,44 @@ char    *ft_float(long double a)
     t_print         divis;                               //деление числа на знак, мантиссу и экспоненту
     short int       exp;                                 //перезапись частей числа
     unsigned long   mant;
-    long long int   mask;
+    unsigned long   mask;
     t_float         num;                                 //деление числа на целую и дробную части
 
     divis.number = a;
-    mask = 9223372036854775808;                          //маска для мантиссы. не изменяется
+    divis.t_byte.exp -= 16383;
+    for (int i = 15; i >= 0 ; --i)
+    {
+        printf("%d", (divis.t_byte.exp >> i) & 1 ? 1 : 0); 
+    }
+    printf("\n");
+    for (int i = 63; i >= 0 ; --i)
+    {
+        printf("%d", (divis.t_byte.mant >> i) & 1 ? 1 : 0); 
+    }
+    printf("\n");
+    mask = 63;                                           //маска для мантиссы. не изменяется
     exp = divis.t_byte.exp;                              //переписываются мантисса и экспонента, тк они не могут изменяться в юнион
     mant = divis.t_byte.mant;
-    ft_bzero(&num.prt1, 4932);                           //обнуляются целая и дробная части числа
-    ft_bzero(&num.prt2, 16383);    
+    ft_bzero(num.prt1, 4932);                            //обнуляются целая и дробная части числа
+    ft_bzero(num.prt2, 16383);
     while (mant != 0)                                    //пока мантисса есть, число будет считаться
     {
-        if ((mant & mask) != 0)                          //проверяется наличие бита мантиссы
+        if (((mant >> mask) & 1) != 0)                   //проверяется наличие бита мантиссы
         {
             ft_long_ariphm(exp, num);                    //функция рассчета числа
+            --mask;
         }
         --exp;
-        mant <<= 1;                                      //сдвигается бит мантиссы
     }
-    return (ft_print_float(num));
+    return (ft_print_float(&num));
 }
 
 int main()
 {
    long double a;
    
-   a = 5;
+   printf("a\n");
+   a = 5L;
    ft_float(a);
     
    return (0);
