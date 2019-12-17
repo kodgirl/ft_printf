@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 15:02:44 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/17 13:37:07 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/17 16:01:31 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,30 @@
 # include <stdio.h>
 # include <inttypes.h>
 # include <limits.h>
+
+
+typedef struct  s_struct
+{
+    char type;
+    int stop; // костыль для парса
+    int plus; //f
+    int minus; //f
+    int space; //f
+    int sharp; //f
+    int zero; //f
+    int stopflags; // стоп флагов
+    int width;
+    int widthisneg; // ширина отрицательная
+    int precision; // точность
+    unsigned long int value_d; // значение из стэка для d/i
+    int h;
+    int hh;
+    int l;
+    int ll;
+    int value_is_neg;
+    int dack_prec;
+    size_t final_size; // общий размер строки за одну обработку!
+}   t_struct;
 
 typedef struct		s_list
 {
