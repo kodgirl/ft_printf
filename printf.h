@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 15:02:44 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/17 16:01:31 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/19 15:42:31 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,22 @@
 # include <inttypes.h>
 # include <limits.h>
 
-
 typedef struct  s_struct
 {
-    char type;
-    int stop; // костыль для парса
     int plus; //f
     int minus; //f
     int space; //f
     int sharp; //f
     int zero; //f
-    int stopflags; // стоп флагов
-    int width;
+    int width; // ширина
     int widthisneg; // ширина отрицательная
     int precision; // точность
-    unsigned long int value_d; // значение из стэка для d/i
     int h;
     int hh;
     int l;
     int ll;
     int value_is_neg;
-    int dack_prec;
-    size_t final_size; // общий размер строки за одну обработку!
+    int dack_prec; //если стоит точка без числа т.е. если не указана точность
 }   t_struct;
 
 typedef struct		s_list
@@ -51,23 +45,15 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-int					ft_atoi(const char *str);
-char				*ft_strcpy(char *dst, const char *src);
 void				ft_putstr(char *str);
 void				ft_putnbr(intmax_t nb);
 void				ft_putchar(char c);
-int					ft_strcmp(const char *s1, const char *s2);
 size_t				ft_strlen(const char *s);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
-int					ft_isdigit(int c);
-void				ft_putchar_fd(char c, int fd);
-void				ft_putstr_fd(char const *s, int fd);
-void				ft_putnbr_fd(int n, int fd);
 void				ft_striter(char *s, void (*f)(char *));
 char				*ft_strmap(char const *s, char (*f)(char));
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				*ft_memset(void *b, int c, size_t len);
-void				ft_bzero(void *s, size_t n);
 int					ft_isupper(int c);
 int					ft_islower(int c);
 int					ft_isalpha(int c);
@@ -104,21 +90,5 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void				ft_strclr(char *s);
 size_t				ft_nbrlen(intmax_t n);
-char				*ft_strchr(const char *s, int c);
-char				*ft_strrchr(const char *s, int c);
-char				*ft_strstr(const char *haystack, const char *needle);
-char				*ft_strnstr(const char *haystack, const char *needle,
-					size_t len);
-char				*ft_strsub(char const *s, unsigned int start, size_t len);
-char				*ft_strtrim(char const *s);
-char				**ft_strsplit(char const *s, char c);
-size_t				ft_strlento(char *s, char c);
-const char			*ft_skip_sym(const char *str, char c);
-size_t				ft_strlento(char *s, char c);
-char				*ft_massmalloc(char **dst, size_t len, int index);
-char				*ft_strccpy(char *dst, const char *src, char c);
-char				*ft_strdup(const char *src);
-void				ft_lstaddend(t_list **alst, t_list *new);
-int                 ft_list_size(t_list *begin_list);
 
 #endif
