@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 15:02:44 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/19 15:42:31 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/20 21:54:38 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,49 @@
 # include <stdio.h>
 # include <inttypes.h>
 # include <limits.h>
+
+# define MAX_SIZE_BUF       5000
+
+typedef struct              s_float
+{
+    char                   integer[4932];
+    char                    fract[16383];
+    int                    size_int;
+    int                    size_fract;
+    int                    fract_length;
+}                           t_float;
+
+typedef union               s_print		    
+{
+    long double             number;
+    struct                 
+    {
+        unsigned long long  mant:64;
+	    short int           exp:15;
+	    unsigned int        sign:1;
+    }                       t_byte;
+}						    t_print;
+
+typedef enum                e_boolen
+{
+    True = 1,
+    False = !True
+}                           t_boolen;
+
+typedef struct              s_buf_power
+{
+    char buf[MAX_SIZE_BUF];
+    int power;
+    t_boolen init;
+}                           t_buf_power;
+
+typedef struct              s_power_of_2
+{
+    int integer[64];
+    int fract[64];
+    int size_int;
+    int size_fract;
+}                           t_power_of_2;
 
 typedef struct  s_struct
 {
@@ -38,57 +81,27 @@ typedef struct  s_struct
     int dack_prec; //если стоит точка без числа т.е. если не указана точность
 }   t_struct;
 
-typedef struct		s_list
-{
-	char			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}					t_list;
+void    ft_beatuful_mass(char *long_num);
+void    ft_mass_sum(char *long_num1, char *long_num2);
+void    ft_longnum_to_2power(char *long_num, int power);
+void    ft_buf_riseto_power(t_buf_power *buffer, int to_power);
+void    ft_long_ariphm(t_power_of_2 powers);
+void	ft_bzero(void *s, size_t n);
+void    ft_power_to_massive(t_power_of_2 *powers, int power);
+char    *ft_float(long double a);
+void    ft_mass_multiply(char *buffer, int num);
+void    print_float_number(t_float *number, int len_int, int len_fract);
+void    print_struct_powers(t_power_of_2 *powers);
+void    ft_five_to_power(t_buf_power *buffer, int to_power);
+void    ft_fract_sum(t_float *number, t_buf_power *buffer);
+void    ft_longnum_to_5power(char *buffer, int power);
+void    ft_mass_multiply(char *buffer, int num);
 
-void				ft_putstr(char *str);
-void				ft_putnbr(intmax_t nb);
-void				ft_putchar(char c);
-size_t				ft_strlen(const char *s);
-char				*ft_strncpy(char *dst, const char *src, size_t len);
-void				ft_striter(char *s, void (*f)(char *));
-char				*ft_strmap(char const *s, char (*f)(char));
-int					ft_memcmp(const void *s1, const void *s2, size_t n);
-void				*ft_memset(void *b, int c, size_t len);
-int					ft_isupper(int c);
-int					ft_islower(int c);
-int					ft_isalpha(int c);
-void				*ft_memchr(const void *s, int c, size_t n);
-void				ft_striteri(char *s, void (*f)(unsigned int, char *));
-char				*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-int					ft_strncmp(const char *s1, const char *s2, size_t n);
-int					ft_tolower(int c);
-int					ft_toupper(int c);
-void				*ft_memalloc(size_t size);
-int					ft_isalnum(int c);
-void				*ft_memcpy(void *dst, const void *src, size_t n);
-void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
-void				ft_memdel(void **ap);
-void				*ft_memmove(void *dst, const void *src, size_t len);
-char				*ft_strjoin(char const *s1, char const *s2);
-int					ft_strequ(char const *s1, char const *s2);
-int					ft_strnequ(char const *s1, char const *s2, size_t n);
-void				ft_putendl(char const *s);
-void				ft_putendl_fd(char const *s, int fd);
-char				*ft_strcat(char *s1, const char *s2);
-char				*ft_strncat(char *s1, const char *s2, size_t n);
-size_t				ft_strlcat(char *dst, const char *src, size_t size);
-int					ft_isprint(int c);
-int					ft_isascii(int c);
-char				*ft_itoa(intmax_t n);
-char				*ft_strnew(size_t size);
-t_list				*ft_lstnew(void const *content, size_t content_size);
-void				ft_strdel(char **as);
-void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
-void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void				ft_strclr(char *s);
-size_t				ft_nbrlen(intmax_t n);
+
+
+void    print_buffer(t_buf_power *buf, int print_len);                          //delete after
+void    print_float_number(t_float *number, int len_int, int len_fract);
+void    print_struct_powers(t_power_of_2 *powers);
+
 
 #endif
