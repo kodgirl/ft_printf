@@ -27,12 +27,12 @@ void    print_float_number(t_float *number, int len_int, int len_fract)
         printf("%d ", number->integer[i]);
         ++i;
     }
-    printf("\n");
+    printf("\nFractal = ");
     f = 0;
     while (f < len_fract)
     {
-        printf("%d ", number->fract[i]);
-        ++i;
+        printf("%d ", number->fract[f]);
+        ++f;
     }
     printf("\n");
     printf("Size_int: %d\n ", number->size_int);  

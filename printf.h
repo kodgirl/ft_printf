@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 15:02:44 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/20 21:54:38 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/23 16:08:57 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <inttypes.h>
 # include <limits.h>
 
-# define MAX_SIZE_BUF       5000
+# define MAX_SIZE_BUF       10 //5000
 
 typedef struct              s_float
 {

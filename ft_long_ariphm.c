@@ -63,7 +63,7 @@ void    ft_buf_riseto_power(t_buf_power *buffer, int to_power)
     diff = to_power - buffer->power;
     ft_longnum_to_2power(buffer->buf, diff);
     buffer->power = to_power;
-    print_buffer(buffer, 50);        
+    // print_buffer(buffer, 50);        
 }
 
 
@@ -89,7 +89,6 @@ void    ft_long_ariphm(t_power_of_2 powers)
     buffer.init = False;                           
     fract_index = 0;
     number.fract_length = 0;
-    printf("\n\n\n\n");
     while (fract_index < powers.size_fract)
     {
         ft_five_to_power(&buffer, -powers.fract[fract_index]);
@@ -97,5 +96,5 @@ void    ft_long_ariphm(t_power_of_2 powers)
         ft_beatuful_mass(number.fract);
         ++fract_index;
     } 
-    print_float_number(&number, 49, 0);
+    print_float_number(&number, 49, 49);
 }

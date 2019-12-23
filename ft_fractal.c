@@ -35,7 +35,7 @@ void    ft_five_to_power(t_buf_power *buffer, int to_power)
     diff = to_power - buffer->power;
     ft_longnum_to_5power(buffer->buf, diff);
     buffer->power = to_power;
-    print_buffer(buffer, 50);        
+    // print_buffer(buffer, 50);        
 }
 
 void    ft_fract_sum(t_float *number, t_buf_power *buffer)
@@ -45,11 +45,11 @@ void    ft_fract_sum(t_float *number, t_buf_power *buffer)
     
     i = 0;
     index_buffer = buffer->power - 1;
-    while (number->fract_length >= 0)
+    while (index_buffer >= 0)
     {
         number->fract[number->fract_length] += buffer->buf[index_buffer]; 
+        --index_buffer;
         --number->fract_length;
-        --buffer->power;
     } 
     number->fract_length = buffer->power - 1;
 }

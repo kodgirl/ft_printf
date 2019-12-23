@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 19:00:25 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/20 21:55:07 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/23 15:42:43 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char    *ft_float(long double a)
     t_power_of_2        powers;
     
     divis.number = a;
-    printf("mantissa: %llu\n", divis.t_byte.mant);
     divis.t_byte.exp -= 16383;
     i = 0;
     mask = 1L << 63;                           
@@ -59,7 +58,7 @@ char    *ft_float(long double a)
         ++i;
         mask >>= 1;
     }
-    print_struct_powers(&powers);
+    // print_struct_powers(&powers);
     ft_long_ariphm(powers);
     return (NULL);
 }
@@ -68,7 +67,7 @@ int main()
 {
    long double a;
    
-   a = 243.6785567L;
+   a = 2.6L;
    printf("result %s\n", ft_float(a)); 
    printf("result2 %Lf", a); 
    return (0);
