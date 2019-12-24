@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 15:02:44 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/23 16:08:57 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/24 18:12:58 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # include <inttypes.h>
 # include <limits.h>
 
-# define MAX_SIZE_BUF       10 //5000
+# define MAX_SIZE_BUF       16500 //5000
+# define MAX_INTEGER_SIZE	4932
+# define MAX_FRACT_SIZE		16500 //16383
 
 typedef struct              s_float
 {
-    char                   integer[4932];
-    char                    fract[16383];
+    char                   integer[MAX_INTEGER_SIZE];
+    char                   fract[MAX_FRACT_SIZE];
     int                    size_int;
     int                    size_fract;
     int                    fract_length;
@@ -81,7 +83,7 @@ typedef struct  s_struct
     int dack_prec; //если стоит точка без числа т.е. если не указана точность
 }   t_struct;
 
-void    ft_beatuful_mass(char *long_num);
+void    ft_beatuful_mass(char *long_num, int buf_size);
 void    ft_mass_sum(char *long_num1, char *long_num2);
 void    ft_longnum_to_2power(char *long_num, int power);
 void    ft_buf_riseto_power(t_buf_power *buffer, int to_power);

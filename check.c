@@ -31,7 +31,7 @@ void    print_float_number(t_float *number, int len_int, int len_fract)
     f = 0;
     while (f < len_fract)
     {
-        printf("%d ", number->fract[f]);
+        printf("%d", number->fract[f]);
         ++f;
     }
     printf("\n");

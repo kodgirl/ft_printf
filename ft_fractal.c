@@ -17,7 +17,7 @@ void    ft_longnum_to_5power(char *buffer, int power)
     while (power)
     {
         ft_mass_multiply(buffer, 5);
-        ft_beatuful_mass(buffer);
+        ft_beatuful_mass(buffer, MAX_SIZE_BUF);
         --power;
     }
 }
@@ -40,16 +40,17 @@ void    ft_five_to_power(t_buf_power *buffer, int to_power)
 
 void    ft_fract_sum(t_float *number, t_buf_power *buffer)
 {
-    int i;
-    int index_buffer;
-    
-    i = 0;
-    index_buffer = buffer->power - 1;
-    while (index_buffer >= 0)
-    {
-        number->fract[number->fract_length] += buffer->buf[index_buffer]; 
-        --index_buffer;
-        --number->fract_length;
-    } 
-    number->fract_length = buffer->power - 1;
+	int i;
+	int power;
+	char *start;
+
+	i = 0;
+	power = buffer->power;
+	start = number->fract + MAX_FRACT_SIZE - power;
+	while (power && i < MAX_SIZE_BUF)
+	{
+		start[i] += buffer->buf[i];
+		++i;
+		--power;
+	}
 }

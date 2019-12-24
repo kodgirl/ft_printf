@@ -1,13 +1,13 @@
 #include "printf.h"
 
-void    ft_beatuful_mass(char *long_num)
+void    ft_beatuful_mass(char *long_num, int buf_size)
 {
     int next;
     int current;
     
     current = 0;
     next = current + 1;
-    while (next < MAX_SIZE_BUF)
+    while (next < buf_size)
     {
         if (long_num[current] > 9)
         {
@@ -37,7 +37,7 @@ void ft_longnum_to_2power(char *long_num, int power)
     while (power)
     {
         ft_mass_sum(long_num, long_num);
-        ft_beatuful_mass(long_num);
+        ft_beatuful_mass(long_num, MAX_SIZE_BUF);
         --power;
     }
 }
@@ -82,7 +82,7 @@ void    ft_long_ariphm(t_power_of_2 powers)
     {
         ft_buf_riseto_power(&buffer, powers.integer[int_index]);
         ft_mass_sum(number.integer, buffer.buf);
-        ft_beatuful_mass(number.integer);
+        ft_beatuful_mass(number.integer, MAX_SIZE_BUF);
         --int_index;
     }   
     ft_bzero(&buffer, sizeof(t_buf_power));
@@ -93,8 +93,8 @@ void    ft_long_ariphm(t_power_of_2 powers)
     {
         ft_five_to_power(&buffer, -powers.fract[fract_index]);
         ft_fract_sum(&number, &buffer);
-        ft_beatuful_mass(number.fract);
+        ft_beatuful_mass(number.fract, MAX_FRACT_SIZE);
         ++fract_index;
     } 
-    print_float_number(&number, 49, 49);
+    print_float_number(&number, 49, MAX_FRACT_SIZE);
 }
