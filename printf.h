@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/06 15:02:44 by bjasper           #+#    #+#             */
-/*   Updated: 2019/12/24 18:12:58 by bjasper          ###   ########.fr       */
+/*   Updated: 2019/12/25 16:17:26 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,10 @@ void    ft_beatuful_mass(char *long_num, int buf_size);
 void    ft_mass_sum(char *long_num1, char *long_num2);
 void    ft_longnum_to_2power(char *long_num, int power);
 void    ft_buf_riseto_power(t_buf_power *buffer, int to_power);
-void    ft_long_ariphm(t_power_of_2 powers);
+t_float    ft_long_ariphm(t_power_of_2 powers);
 void	ft_bzero(void *s, size_t n);
 void    ft_power_to_massive(t_power_of_2 *powers, int power);
-char    *ft_float(long double a);
+char    *ft_float(long double a, t_struct *flags);
 void    ft_mass_multiply(char *buffer, int num);
 void    print_float_number(t_float *number, int len_int, int len_fract);
 void    print_struct_powers(t_power_of_2 *powers);
@@ -98,6 +98,7 @@ void    ft_five_to_power(t_buf_power *buffer, int to_power);
 void    ft_fract_sum(t_float *number, t_buf_power *buffer);
 void    ft_longnum_to_5power(char *buffer, int power);
 void    ft_mass_multiply(char *buffer, int num);
+char *float_tostr(t_float *number, t_struct *flags);
 
 
 

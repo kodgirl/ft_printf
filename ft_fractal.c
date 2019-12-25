@@ -1,5 +1,48 @@
 #include "printf.h"
 
+void	*ft_memalloc(size_t size)
+{
+	void	*ar;
+	size_t	i;
+
+	i = 0;
+	if (size && (ar = (void*)malloc(sizeof(void) * size)))
+		ft_bzero(ar, size);
+	else
+		return (NULL);
+	return (ar);
+}
+
+char *float_tostr(t_float *number, t_struct *flags)
+{
+	char *str;
+	int i;
+	int j;
+	int size_int;
+	
+	i = 0;
+	j = 1;
+	size_int = 1; //ft_sizeint add function
+	if (flags->precision == 0)
+		flags->precision = 6;	
+	str = ft_memalloc(size_int + flags->precision + 2);
+	while (i < size_int)
+	{
+		str[i] = number->integer[i] + '0';
+		++i;
+	}
+	str[i++] = '.';
+	while (j <= flags->precision)
+	{
+		str[i] = number->fract[MAX_FRACT_SIZE - j] + '0';
+		++j;
+		++i;
+	}
+	if (number->fract[MAX_FRACT_SIZE - j] >= 5)
+		str[i - 1] += 1; 
+	return(str);
+}
+
 void    ft_mass_multiply(char *buffer, int num)
 {
     int i;
