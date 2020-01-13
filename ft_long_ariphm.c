@@ -62,8 +62,7 @@ void    ft_buf_riseto_power(t_buf_power *buffer, int to_power)
     }
     diff = to_power - buffer->power;
     ft_longnum_to_2power(buffer->buf, diff);
-    buffer->power = to_power;
-    // print_buffer(buffer, 50);        
+    buffer->power = to_power;        
 }
 
 
@@ -96,6 +95,6 @@ t_float    ft_long_ariphm(t_power_of_2 powers)
         ft_beatuful_mass(number.fract, MAX_FRACT_SIZE);
         ++fract_index;
     } 
-    // print_float_number(&number, 49, MAX_FRACT_SIZE);
+	//print_float_number(&number, 4950, 0);
 	return (number);
 }
