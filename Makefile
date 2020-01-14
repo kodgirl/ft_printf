@@ -3,16 +3,37 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/22 16:20:25 by rgwayne-          #+#    #+#              #
-#    Updated: 2020/01/13 13:49:40 by bjasper          ###   ########.fr        #
+#    Updated: 2020/01/13 16:53:31 by rgwayne-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRC = *.c
+SRC = ft_printf.c \
+		parser.c \
+		converser.c \
+		string_maker.c \
+		word_width_maker.c \
+		ft_new_itoa.c \
+		ft_flags.c \
+		word_prec_maker.c \
+		libft.c \
+		ft_for_int.c \
+		ft_long_itoa.c \
+		ft_for_int2.c \
+		ft_for_octal.c \
+		ft_hex.c \
+		parser2.c \
+		ft_for_c.c \
+		ft_for_s.c \
+		ft_for_p.c \
+		ft_for_f.c \
+		ft_fractal.c \
+		ft_float.c \
+		ft_long_ariphm.c
 
 INCL = printf.h
 
@@ -25,7 +46,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	gcc $(GCC_FLAGS) -c $< -o $@
+	gcc -c $< -o $@
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)

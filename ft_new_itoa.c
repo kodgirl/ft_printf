@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_new_itoa.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/03 17:03:29 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/12/16 15:00:34 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/14 16:54:25 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static int	ft_len(long f)
 	return (i);
 }
 
-char	*ft_final(long int f)
+char		*ft_final(long int f)
 {
 	int		len;
 	char	*tmp;
 
 	len = ft_len(f);
 	if (!(tmp = (char *)malloc(sizeof(char) * (len + 1))))
-        return (0);
+		return (0);
 	tmp[len] = '\0';
 	len = len - 1;
 	if (f < 0)
@@ -72,7 +72,7 @@ char		*ft_new_itoa(long int n)
 
 char		*ft_oct_itoa(long int n)
 {
-	char	*res;
+	char		*res;
 	long int	nbr;
 
 	nbr = n;

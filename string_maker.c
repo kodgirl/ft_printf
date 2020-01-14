@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_maker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:12:19 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/12/25 17:54:51 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/14 18:18:52 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,14 @@ void	width_and_precision(t_struct *inform, int len)
 	else
 	{
 		inform->final_size = inform->precision;
-		if ((inform->type == 'X' || inform->type == 'x') && inform->sharp && inform->value_d != 0)
+		if ((inform->type == 'X' || inform->type == 'x') &&\
+						inform->sharp && inform->value_d != 0)
 			inform->final_size += 2;
 	}
 	if (inform->final_size < len)
 		inform->final_size = len;
-	inform->final_size = (inform->type == 'p' && inform->precision > len) ? inform->precision + 2 : inform->final_size;
+	inform->final_size = (inform->type == 'p' && inform->precision > len)\
+								? inform->precision + 2 : inform->final_size;
 }
 
 int		flag_corrector(t_struct *inform)
@@ -80,8 +82,8 @@ int		va_value(t_struct *inform, va_list list, int i)
 
 int		ft_value_maker(t_struct *inform, t_buff *buff_size, va_list list)
 {
-	size_t len;
-	int i;
+	size_t	len;
+	int		i;
 
 	len = 0;
 	i = flag_corrector(inform);

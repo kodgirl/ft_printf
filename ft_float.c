@@ -6,7 +6,7 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/24 19:00:25 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/13 14:35:08 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/13 16:32:41 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,16 @@ char	*ft_float(long double a, t_struct *flags)
 		}
 		else
 		{
-			flags->space = 0;
+			//flags->space = 0;
 			flags->zero = 0;
 			flags->precision = 0;
 			return ("inf");
 		}
+	}
+	if (divis.t_byte.sign == 1 && !flags->nan_or_inf)
+	{
+			flags->value_is_neg = 1;
+			flags->plus = 0;
 	}
 	i = 0;
 	mask = 1L << 63;

@@ -6,27 +6,27 @@
 /*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 20:14:59 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/12/25 14:20:09 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/14 15:45:27 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char *c_value_maker(t_struct *inform, char *buffer)
+char	*c_value_maker(t_struct *inform, char *buffer)
 {
 	char *str;
 
 	str = ft_memalloc(inform->final_size + 1);
 	str[0] = inform->value_hex[0];
 	str[1] = '\0';
-	return (str); 
+	return (str);
 }
 
-char *x_value_maker(t_struct *inform, char *buffer)
+char	*x_value_maker(t_struct *inform, char *buffer)
 {
 	char *str;
-    
-    if (inform->h)
+
+	if (inform->h)
 		str = hex_rev(inform);
 	else if (inform->hh)
 		str = hex_rev(inform);
@@ -39,11 +39,11 @@ char *x_value_maker(t_struct *inform, char *buffer)
 	return (str);
 }
 
-char *o_value_maker(t_struct *inform, char *buffer)
+char	*o_value_maker(t_struct *inform, char *buffer)
 {
 	char *str;
-    
-    if (inform->h)
+
+	if (inform->h)
 		str = hex_rev(inform);
 	else if (inform->hh)
 		str = hex_rev(inform);
@@ -56,11 +56,11 @@ char *o_value_maker(t_struct *inform, char *buffer)
 	return (str);
 }
 
-char *u_value_maker(t_struct *inform, char *buffer) // тут вписывать вэлью
+char	*u_value_maker(t_struct *inform, char *buffer)
 {
-    char *str;
-    
-    if (inform->h)
+	char *str;
+
+	if (inform->h)
 		str = ft_short_itoa((short)inform->value_d);
 	else if (inform->hh)
 		str = ft_new_itoa((unsigned char)inform->value_d);
@@ -73,11 +73,11 @@ char *u_value_maker(t_struct *inform, char *buffer) // тут вписывать
 	return (str);
 }
 
-char *d_value_maker(t_struct *inform, char *buffer) // тут вписывать вэлью
+char	*d_value_maker(t_struct *inform, char *buffer)
 {
-    char *str;
-    
-    if (inform->h)
+	char *str;
+
+	if (inform->h)
 		str = ft_new_itoa((short)inform->value_d);
 	else if (inform->hh)
 		str = ft_new_itoa((char)inform->value_d);

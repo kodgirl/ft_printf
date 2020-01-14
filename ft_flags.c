@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 14:03:07 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/13 14:23:58 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/13 16:09:44 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*ft_flags(char *str, t_struct *inform, int i, int len)
 	{
 		if (inform->precision > inform->width && inform->precision > len)
 			inform->final_size += 1;
-		else if (inform->value_d == 0 && !inform->width)
+		else if (inform->value_d == 0 && !inform->width && !inform->nan_or_inf )
 			inform->final_size += 1;
 		str[i] = ' ';
 	}

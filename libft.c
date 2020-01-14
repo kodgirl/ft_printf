@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:04:09 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/12/26 18:03:38 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/14 17:43:10 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ char	*ft_strcat(char *s1, const char *s2, t_struct *inform)
 	{
 		if (s2[g] == 48 && inform->dack_prec == 1 && inform->sharp == 0)
 		{
-			s1[i] = ' ';
+			s1[i++] = ' ';
 			g++;
-			i++;
 		}
 		s1[i] = s2[g];
 		if (s2[g] == 48 && inform->dack_prec == 2 && inform->sharp == 0 && inform->type != 'p')
 		{
-			if ((inform->value_d == 0 && inform->type != 'f') || (inform->value_d == 0 && (inform->type == 'x' || inform->type == 'X'))) // для редкой хрени в Хх
+			if ((inform->value_d == 0 && inform->type != 'f') || (inform->value_d == 0 && (inform->type == 'x' || inform->type == 'X')))
 				s1[i] = ' ';
 		}
 		else if (s2[g] == 48 && inform->dack_prec == 2 && inform->sharp == 1 && inform->width && (inform->type == 'x' || inform->type == 'X'))

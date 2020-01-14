@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   word_width_maker.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:09:46 by rgwayne-          #+#    #+#             */
-/*   Updated: 2019/12/26 18:16:08 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/14 18:31:07 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char		*start_by_neg_width(t_struct *inform, char *buffer, int len)
+char	*start_by_neg_width(t_struct *inform, char *buffer, int len)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	str = ft_memalloc(inform->final_size + 1);
@@ -50,11 +50,11 @@ char	*start_by_neg_width2(t_struct *inform, char *str, char *buffer, int len, in
 	return (str);
 }
 
-char		*start_by_width(t_struct *inform, char *buffer, int len)
+char	*start_by_width(t_struct *inform, char *buffer, int len)
 {
-	char *str;
-	int i;
-	int g;
+	char	*str;
+	int		i;
+	int		g;
 
 	g = 0;
 	i = 0;
@@ -77,10 +77,10 @@ char		*start_by_width(t_struct *inform, char *buffer, int len)
 	return (str);
 }
 
-char		*word_maker(t_struct *inform, char *buffer, int len)
+char	*word_maker(t_struct *inform, char *buffer, int len)
 {
-	char *str;
-	int i;
+	char	*str;
+	int		i;
 
 	i = 0;
 	if (inform->width > inform->precision && inform->width > len)
@@ -92,7 +92,7 @@ char		*word_maker(t_struct *inform, char *buffer, int len)
 	return (str);
 }
 
-char		*value_maker(t_struct *inform, char *buffer)
+char	*value_maker(t_struct *inform, char *buffer)
 {
 	char *str;
 
@@ -115,7 +115,7 @@ char		*value_maker(t_struct *inform, char *buffer)
 	return (str);
 }
 
-void		ft_make_arg(t_struct *inform, t_buff *buff_size, int len)
+void	ft_make_arg(t_struct *inform, t_buff *buff_size, int len)
 {
 	char *buffer;
 	char *str;
