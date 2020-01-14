@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_f.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 16:56:33 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/13 16:26:12 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/14 18:46:02 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ int		f_len(t_struct *inform)
 
 int		ft_value_f(t_struct *inform, va_list list, int i)
 {
-    int		len;
+	int		len;
 	char	*str;
-	
+
 	len = 0;
-    inform->value_f = (inform->l) ? va_arg(list, long double) : va_arg(list, double);
+	inform->value_f = (inform->l) ? va_arg(list, long double)\
+										: va_arg(list, double);
 	inform->govno = ft_float(inform->value_f, inform);
 	len = f_len(inform);
 	return (len);
