@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:56:04 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/14 17:05:31 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:19:20 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	list;
 	t_buff	*buff_size;
-	int		i;
 
 	va_start(list, format);
 	buff_size = ft_memalloc(sizeof(t_buff));
@@ -37,7 +36,6 @@ int	ft_printf(const char *format, ...)
 		format++;
 	}
 	va_end(list);
-	i = buff_size->size_of_all;
 	free(buff_size);
-	return (i);
+	return (buff_size->size_of_all);
 }

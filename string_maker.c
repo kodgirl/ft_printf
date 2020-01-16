@@ -6,91 +6,110 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:12:19 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/14 18:18:52 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 15:33:09 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-void	width_and_precision(t_struct *inform, int len)
+void	width_and_precision(t_struct *inf, int len)
 {
-	if (inform->type == 's')
+	if (inf->type == 's')
 		return ;
-	if (inform->width > inform->precision)
-		inform->final_size = inform->width;
+	if (inf->width > inf->precision)
+		inf->final_size = inf->width;
 	else
 	{
-		inform->final_size = inform->precision;
-		if ((inform->type == 'X' || inform->type == 'x') &&\
-						inform->sharp && inform->value_d != 0)
-			inform->final_size += 2;
+		inf->final_size = inf->precision;
+		if ((inf->type == 'X' || inf->type == 'x') &&\
+						inf->sharp && inf->value_d != 0)
+			inf->final_size += 2;
 	}
-	if (inform->final_size < len)
-		inform->final_size = len;
-	inform->final_size = (inform->type == 'p' && inform->precision > len)\
-								? inform->precision + 2 : inform->final_size;
+	if (inf->final_size < len)
+		inf->final_size = len;
+	inf->final_size = (inf->type == 'p' && inf->precision > len)\
+								? inf->precision + 2 : inf->final_size;
 }
 
-int		flag_corrector(t_struct *inform)
+int		flag_corrector(t_struct *inf)
 {
-	if (inform->ll == 1)
+	if (inf->ll == 1)
 	{
-		inform->l = 0;
-		inform->h = 0;
-		inform->h = 0;
+		inf->l = 0;
+		inf->h = 0;
+		inf->h = 0;
 		return (1);
 	}
-	if (inform->l == 1)
+	if (inf->l == 1)
 	{
-		inform->h = 0;
-		inform->hh = 0;
+		inf->h = 0;
+		inf->hh = 0;
 		return (2);
 	}
-	if (inform->h == 1)
+	if (inf->h == 1)
 	{
-		inform->hh = 0;
+		inf->hh = 0;
 		return (3);
 	}
-	if (inform->hh == 1)
+	if (inf->hh == 1)
 		return (4);
 	return (5);
 }
 
-int		va_value(t_struct *inform, va_list list, int i)
+int		va_value(t_struct *inf, va_list list, int i)
 {
 	int len;
 
 	len = 0;
-	if (inform->type == 'd')
-		len = ft_value_d(inform, list, i);
-	else if (inform->type == 'u')
-		len = ft_value_u(inform, list, i);
-	else if (inform->type == 'o')
-		len = ft_value_o(inform, list, i);
-	else if (inform->type == 'x' || inform->type == 'X')
-		len = ft_value_x(inform, list, i);
-	else if (inform->type == 'c' || inform->type == '%')
-		len = ft_value_c(inform, list, i);
-	else if (inform->type == 's')
-		len = ft_value_s(inform, list, i);
-	else if (inform->type == 'p')
-		len = ft_value_p(inform, list, i);
-	else if (inform->type == 'f')
-		len = ft_value_f(inform, list, i);
+	if (inf->type == 'd')
+		len = ft_value_d(inf, list, i);
+	else if (inf->type == 'u')
+		len = ft_value_u(inf, list, i);
+	else if (inf->type == 'o')
+		len = ft_value_o(inf, list, i);
+	else if (inf->type == 'x' || inf->type == 'X')
+		len = ft_value_x(inf, list, i);
+	else if (inf->type == 'c' || inf->type == '%')
+		len = ft_value_c(inf, list, i);
+	else if (inf->type == 's')
+		len = ft_value_s(inf, list, i);
+	else if (inf->type == 'p')
+		len = ft_value_p(inf, list, i);
+	else if (inf->type == 'f')
+		len = ft_value_f(inf, list, i);
 	return (len);
 }
 
-int		ft_value_maker(t_struct *inform, t_buff *buff_size, va_list list)
+void	ft_make_arg(t_struct *inf, t_buff *buff_size, int len)
+{
+	char *buffer;
+	char *str;
+
+	buffer = value_maker(inf, buffer);
+	if (inf->type != 's')
+		str = word_maker(inf, buffer, len);
+	else
+		str = str_maker(inf, buffer, len);
+	write(1, str, inf->final_size);
+	if (!inf->nan_or_inf)
+		free(buffer);
+	if (inf->type != 's')
+		free(str);
+	if (inf->type == 'p')
+		free(inf->govno);
+}
+
+int		ft_value_maker(t_struct *inf, t_buff *buff_size, va_list list)
 {
 	size_t	len;
 	int		i;
 
 	len = 0;
-	i = flag_corrector(inform);
-	len = va_value(inform, list, i);
-	width_and_precision(inform, len);
-	ft_make_arg(inform, buff_size, len);
-	buff_size->size_of_all += inform->final_size;
-	free(inform);
+	i = flag_corrector(inf);
+	len = va_value(inf, list, i);
+	width_and_precision(inf, len);
+	ft_make_arg(inf, buff_size, len);
+	buff_size->size_of_all += inf->final_size;
+	free(inf);
 	return (0);
 }

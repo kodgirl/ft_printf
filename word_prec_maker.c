@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:26:58 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/14 18:34:22 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 15:20:54 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,19 @@ char	*start_by_len(t_struct *inform, char *buffer, int len)
 	return (str);
 }
 
+void	support(int *len, int *i, t_struct *inform)
+{
+	(*i)++;
+	if ((inform->type == 'X' || inform->type == 'x') && inform->sharp)
+	{
+		(*i)++;
+		(*len)--;
+	}
+	(*len)--;
+	if (inform->type == 'o')
+		(*len)++;
+}
+
 char	*start_by_prec(t_struct *inform, char *buffer, int len)
 {
 	char	*str;
@@ -75,17 +88,7 @@ char	*start_by_prec(t_struct *inform, char *buffer, int len)
 	i = 0;
 	str = ft_memalloc(inform->final_size + 1);
 	if (ft_flags(str, inform, i, len))
-	{
-		i++;
-		if ((inform->type == 'X' || inform->type == 'x') && inform->sharp)
-		{
-			i++;
-			len--;
-		}
-		len--;
-		if (inform->type == 'o')
-			len++;
-	}
+		support(&len, &i, inform);
 	if (inform->type == 'p' && inform->precision > len)
 	{
 		while (g++ < inform->final_size - len)

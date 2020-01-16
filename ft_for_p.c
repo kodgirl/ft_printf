@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:12:15 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/14 16:14:45 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ char	*p_value_maker(t_struct *infrom, char *buffer)
 	return (str);
 }
 
-int		ft_value_p(t_struct *inform, va_list list, int i)
+int		ft_value_p(t_struct *inf, va_list list, int i)
 {
 	int		len;
 	char	*str;
 
 	len = 0;
-	inform->value_d = va_arg(list, intptr_t);
-	ft_hexer(inform, 0);
-	str = hex_rev(inform);
+	inf->value_d = va_arg(list, intptr_t);
+	ft_hexer(inf, 0);
+	str = hex_rev(inf);
 	len = ft_strlen(str);
-	inform->govno = str;
-	if (inform->value_d == 0 && inform->dack_prec)
+	inf->govno = str;
+	if (inf->value_d == 0 && inf->dack_prec)
 		return (len + 1);
 	return (len + 2);
 }

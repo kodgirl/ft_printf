@@ -6,46 +6,86 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 16:56:33 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/14 18:46:02 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:46:22 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+int		ft_sizeint(char *integer, long double value)
+{
+	int i;
+
+	i = MAX_INTEGER_SIZE;
+	while (i > 0 && integer[i - 1] == 0)
+		--i;
+	i += ((value > -1 && value <= 0) || (value < 1 && value >= 0)) ? 1 : 0;
+	return (i);
+}
+
+void	ft_for_float(t_str *ind, char *str, t_struct *flags, t_float *number)
+{
+	while (ind->j <= flags->precision)
+	{
+		str[ind->i] = number->fract[MAX_FRACT_SIZE - ind->j] + '0';
+		++ind->j;
+		++ind->i;
+	}
+	--ind->i;
+	if (number->fract[MAX_FRACT_SIZE - ind->j] + 48 >= '5')
+	{
+		if (str[ind->i] < '9' && str[ind->i] != '.')
+			str[ind->i] += 1;
+		else
+			while (str[ind->i] == '9' && str[ind->i] != '.')
+			{
+				if (str[ind->i - 1] == '.')
+					str[ind->i - 2] += 1;
+				str[ind->i] = '0';
+				if (str[ind->i - 1] != '9' && str[ind->i - 1] != '.')
+				{
+					str[ind->i - 1] += 1;
+					break ;
+				}
+				--ind->i;
+			}
+	}
+}
 
 char	*f_value_maker(t_struct *infrom, char *buffer)
 {
 	return (infrom->govno);
 }
 
-int		f_len(t_struct *inform)
+int		f_len(t_struct *inf)
 {
 	int len;
 
 	len = 0;
-	len = ft_strlen(inform->govno);
-	if (inform->plus == 1 || inform->value_f < 0)
+	len = ft_strlen(inf->govno);
+	if (inf->plus == 1 || inf->value_f < 0)
 	{
-		inform->value_is_neg = (inform->value_f < 0) ? 1 : 0;
+		inf->value_is_neg = (inf->value_f < 0) ? 1 : 0;
 		len += 1;
 	}
-	if (inform->space && (!inform->minus && inform->value_f > 0))
+	if (inf->space && (!inf->minus && inf->value_f > 0))
 		len += 1;
-	if (inform->space && (inform->minus && inform->value_f > 0))
+	if (inf->space && (inf->minus && inf->value_f > 0))
 		len += 1;
-	if (inform->value_is_neg && inform->value_f == -0 && !inform->nan_or_inf)
+	if (inf->value_is_neg && inf->value_f == -0 && !inf->nan_or_inf)
 		len += 1;
 	return (len);
 }
 
-int		ft_value_f(t_struct *inform, va_list list, int i)
+int		ft_value_f(t_struct *inf, va_list list, int i)
 {
 	int		len;
 	char	*str;
 
 	len = 0;
-	inform->value_f = (inform->l) ? va_arg(list, long double)\
+	inf->value_f = (inf->l) ? va_arg(list, long double)\
 										: va_arg(list, double);
-	inform->govno = ft_float(inform->value_f, inform);
-	len = f_len(inform);
+	inf->govno = ft_float(inf->value_f, inf);
+	len = f_len(inf);
 	return (len);
 }

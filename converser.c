@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   converser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 20:02:37 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/13 16:52:12 by rgwayne-         ###   ########.fr       */
+/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*ft_strpcat(char *s1, t_struct *inform, int len)
+char	*ft_strpcat(char *s1, t_struct *inf, int len)
 {
 	int i;
 	int g;
@@ -23,7 +23,7 @@ char	*ft_strpcat(char *s1, t_struct *inform, int len)
 	s1[1] = 'x';
 	while (i++ < len)
 		s1[g++] = '0';
-	ft_strcat(s1, inform->govno, inform);
+	ft_strcat(s1, inf->govno, inf);
 	return (s1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 20:04:09 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/14 17:43:10 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:07:24 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ void	*ft_memset(void *b, int c, size_t len)
 		i++;
 	}
 	return ((unsigned char *)b);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	ft_memset(s, '\0', n);
 }
 
 void	*ft_memalloc(size_t size)
@@ -49,39 +44,45 @@ void	*ft_memalloc(size_t size)
 		return (NULL);
 }
 
-char	*ft_strcat(char *s1, const char *s2, t_struct *inform)
+void	ft_for_strcat(t_cat *cat, char *s1, const char *s2, t_struct *inf)
 {
-	size_t i;
-	size_t g;
-
-	i = 0;
-	g = 0;
-	while (s1[i] != '\0')
-		i++;
-	while (s2[g] != '\0')
+	if (s2[cat->g] == 48 && inf->dack_prec == 1 && inf->sharp == 0)
 	{
-		if (s2[g] == 48 && inform->dack_prec == 1 && inform->sharp == 0)
-		{
-			s1[i++] = ' ';
-			g++;
-		}
-		s1[i] = s2[g];
-		if (s2[g] == 48 && inform->dack_prec == 2 && inform->sharp == 0 && inform->type != 'p')
-		{
-			if ((inform->value_d == 0 && inform->type != 'f') || (inform->value_d == 0 && (inform->type == 'x' || inform->type == 'X')))
-				s1[i] = ' ';
-		}
-		else if (s2[g] == 48 && inform->dack_prec == 2 && inform->sharp == 1 && inform->width && (inform->type == 'x' || inform->type == 'X'))
-			s1[i] = ' ';
-		else if (s2[g] == 48 && inform->dack_prec == 2 && inform->sharp == 1 && !inform->width && (inform->type == 'x' || inform->type == 'X'))
-		{
-			inform->final_size -= 1;
-			s1[i] = '\0';
-		}
-		g++;
-		i++;
+		s1[cat->i++] = ' ';
+		cat->g++;
 	}
-	s1[i] = '\0';
+	s1[cat->i] = s2[cat->g];
+	if (s2[cat->g] == 48 && inf->dack_prec == 2 && inf->sharp == 0\
+												&& inf->type != 'p')
+	{
+		if ((inf->value_d == 0 && inf->type != 'f') || (inf->value_d == 0\
+								&& (inf->type == 'x' || inf->type == 'X')))
+			s1[cat->i] = ' ';
+	}
+	else if (s2[cat->g] == 48 && inf->dack_prec == 2 && inf->sharp == 1 &&\
+						inf->width && (inf->type == 'x' || inf->type == 'X'))
+		s1[cat->i] = ' ';
+	else if (s2[cat->g] == 48 && inf->dack_prec == 2 && inf->sharp == 1 &&\
+						!inf->width && (inf->type == 'x' || inf->type == 'X'))
+	{
+		inf->final_size -= 1;
+		s1[cat->i] = '\0';
+	}
+	cat->g++;
+	cat->i++;
+}
+
+char	*ft_strcat(char *s1, const char *s2, t_struct *inf)
+{
+	t_cat	cat;
+
+	cat.i = 0;
+	cat.g = 0;
+	while (s1[cat.i] != '\0')
+		cat.i++;
+	while (s2[cat.g] != '\0')
+		ft_for_strcat(&cat, s1, s2, inf);
+	s1[cat.i] = '\0';
 	return (s1);
 }
 

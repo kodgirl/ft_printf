@@ -6,13 +6,13 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:36:50 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/14 16:40:44 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:15:16 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*hex_rev(t_struct *inform)
+char	*hex_rev(t_struct *inf)
 {
 	int		i;
 	int		g;
@@ -20,82 +20,89 @@ char	*hex_rev(t_struct *inform)
 
 	i = 0;
 	g = 0;
-	while (inform->value_hex[g + 1] != '\0')
+	while (inf->value_hex[g + 1] != '\0')
 		g++;
 	str = ft_memalloc(g + 2);
 	while (g >= 0)
 	{
-		if (inform->value_hex[g] >= 65 && inform->value_hex[g] <= 90 && inform->type != 'X')
-			str[i] = inform->value_hex[g] + 32;
+		if (inf->value_hex[g] >= 65 && inf->value_hex[g] <= 90 &&\
+													inf->type != 'X')
+			str[i] = inf->value_hex[g] + 32;
 		else
-			str[i] = inform->value_hex[g];
+			str[i] = inf->value_hex[g];
 		i++;
 		g--;
 	}
 	return (str);
 }
 
-int		hex_len(long int value, t_struct *inform)
+int		hex_len(long int value, t_struct *inf)
 {
 	int i;
 
 	i = 0;
 	if (value == 0)
 	{
-		if (inform->plus && !inform->value_is_neg)
+		if (inf->plus && !inf->value_is_neg)
 			i++;
-		if (!inform->dack_prec || inform->sharp)
+		if (!inf->dack_prec || inf->sharp)
 			i++;
 		return (i);
 	}
 	else
 	{
-		if (inform->space && !inform->plus)
+		if (inf->space && !inf->plus)
 			i++;
-		if (inform->plus)
+		if (inf->plus)
 			i++;
-		if (inform->sharp && inform->type != 'o')
+		if (inf->sharp && inf->type != 'o')
 			i += 2;
-		else if (inform->sharp && inform->type == 'o')
+		else if (inf->sharp && inf->type == 'o')
 			i += 1;
 	}
-	i += inform->final_size;
+	i += inf->final_size;
 	return (i);
 }
 
-void	ft_hexer(t_struct *inform, int flag)
+void	ft_hexer(t_struct *inf, int flag)
 {
 	int i;
 
 	i = 0;
 	if (flag == 3)
-		inform->value_d = (unsigned short)inform->value_d;
+		inf->value_d = (unsigned short)inf->value_d;
 	else if (flag == 4)
-		inform->value_d = (unsigned char)inform->value_d;
+		inf->value_d = (unsigned char)inf->value_d;
 	else if (flag == 5)
-		inform->value_d = (unsigned int)inform->value_d;
-	while (inform->value_d >= 16)
+		inf->value_d = (unsigned int)inf->value_d;
+	while (inf->value_d >= 16)
 	{
-		inform->value_hex[i] = (inform->value_d % 16 < 10) ? inform->value_d % 16 + '0' : inform->value_d % 16 - 10 + 'A';
-		inform->value_d /= 16;
+		if (inf->value_d % 16 < 10)
+			inf->value_hex[i] = inf->value_d % 16 + '0';
+		else
+			inf->value_hex[i] = inf->value_d % 16 - 10 + 'A';
+		inf->value_d /= 16;
 		i++;
 	}
-	inform->value_hex[i] = (inform->value_d < 10) ? inform->value_d + '0' : inform->value_d - 10 + 'A';
-	inform->final_size += i + 1;
+	if (inf->value_d < 10)
+		inf->value_hex[i] = inf->value_d + '0';
+	else
+		inf->value_hex[i] = inf->value_d - 10 + 'A';
+	inf->final_size += i + 1;
 }
 
-int		ft_value_x(t_struct *inform, va_list list, int i)
+int		ft_value_x(t_struct *inf, va_list list, int i)
 {
 	if (i == 1)
-		inform->value_d = va_arg(list, unsigned long);
+		inf->value_d = va_arg(list, unsigned long);
 	else if (i == 2)
-		inform->value_d = va_arg(list, unsigned long);
+		inf->value_d = va_arg(list, unsigned long);
 	else if (i == 3)
-		inform->value_d = va_arg(list, unsigned int);
+		inf->value_d = va_arg(list, unsigned int);
 	else if (i == 4)
-		inform->value_d = va_arg(list, int);
+		inf->value_d = va_arg(list, int);
 	else if (i == 5)
-		inform->value_d = va_arg(list, unsigned long long int);
-	ft_hexer(inform, i);
-	return ((int)hex_len(inform->value_d, inform));
+		inf->value_d = va_arg(list, unsigned long long int);
+	ft_hexer(inf, i);
+	return ((int)hex_len(inf->value_d, inf));
 }

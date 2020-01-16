@@ -6,73 +6,36 @@
 /*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:26:20 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/14 16:35:18 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:46:14 by bjasper          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-int		ft_sizeint(char *integer, long double value)
-{
-	int i;
-
-	i = MAX_INTEGER_SIZE;
-	while (i > 0 && integer[i - 1] == 0)
-		--i;
-	i += ((value > -1 && value <= 0) || (value < 1 && value >= 0)) ? 1 : 0;
-	return (i);
-}
-
 char	*float_tostr(t_float *number, t_struct *flags)
 {
 	char	*str;
-	int		i;
-	int		j;
+	t_str	ind;
 	int		size_int;
 
-	i = 0;
-	j = 1;
+	ind.i = 0;
+	ind.j = 1;
 	size_int = ft_sizeint(number->integer, flags->value_f);
 	if (flags->precision == 0 && !flags->dack_prec)
 		flags->precision = 6;
 	str = ft_memalloc(size_int + flags->precision + 2);
-	while (i < size_int)
+	while (ind.i < size_int)
 	{
-		str[i] = number->integer[size_int - i - 1] + '0';
-		++i;
+		str[ind.i] = number->integer[size_int - ind.i - 1] + '0';
+		++ind.i;
 	}
-	if (!flags->precision && flags->dack_prec && number->fract[MAX_FRACT_SIZE - 1] >= 5)
-		str[i - 1] += 1;
+	if (!flags->precision && flags->dack_prec &&\
+			number->fract[MAX_FRACT_SIZE - 1] >= 5)
+		str[ind.i - 1] += 1;
 	else if (!flags->dack_prec || flags->sharp == 1)
 	{
-		str[i++] = '.';
-		while (j <= flags->precision && MAX_FRACT_SIZE - j >= 0)
-		{
-			str[i] = number->fract[MAX_FRACT_SIZE - j] + '0';
-			++j;
-			++i;
-		}
-		--i;
-		if (MAX_FRACT_SIZE - j >= 0 && number->fract[MAX_FRACT_SIZE - j] + 48 >= '5')
-		{
-			if (str[i] < '9' && str[i] != '.')
-				str[i] += 1;
-			else
-			{
-				while (str[i] == '9' && str[i] != '.')
-				{
-					if (str[i - 1] == '.')
-						str[i - 2] += 1;
-					str[i] = '0';
-					if (str[i - 1] != '9' && str[i - 1] != '.')
-					{
-						str[i - 1] += 1;
-						break ;
-					}
-					--i;
-				}
-			}
-		}
+		str[ind.i++] = '.';
+		ft_for_float(&ind, str, flags, number);
 	}
 	return (str);
 }
