@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_p.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:12:15 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:34:04 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*p_value_maker(t_struct *infrom, char *buffer)
+char	*p_value_maker(t_struct *infrom)
 {
 	char *str;
 
@@ -25,7 +25,7 @@ char	*p_value_maker(t_struct *infrom, char *buffer)
 	return (str);
 }
 
-int		ft_value_p(t_struct *inf, va_list list, int i)
+int		ft_value_p(t_struct *inf, va_list list)
 {
 	int		len;
 	char	*str;

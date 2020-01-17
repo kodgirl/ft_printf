@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_octal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 19:32:14 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:26:57 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
+
+void	ft_spacer_p2(char *s1, int i, t_struct *j, int len)
+{
+	if ((j->nv && j->zero) || (j->nv && j->width - len == 1 && j->type != 'f')\
+	|| (j->width - len == len && (j->plus || j->zero || j->minus || j->space)))
+		len++;
+	while (i < j->width - len)
+		s1[i++] = 32;
+	if (j->width - len - j->space == 1 && j->value_d == 0)
+		j->space = 0;
+	ft_flags(s1, j, i, len);
+}
+
+char	*ft_flags1(char *str, t_struct *inf, int i, int len)
+{
+	if (inf->p > len && !inf->wg && inf->width != 0 && inf->width > inf->p)
+		if (inf->type != 'X' && inf->type != 'x')
+			return (str);
+	str[i] = 48;
+	if ((inf->type == 'x' && inf->value_d != 0)\
+	|| (inf->type == 'X' && inf->value_d != 0))
+		str[++i] = inf->type;
+	return (str);
+}
 
 void	ft_octal(t_struct *inf, int flag)
 {

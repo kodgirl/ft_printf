@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_f.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/25 16:56:33 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 16:46:22 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:36:41 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		ft_sizeint(char *integer, long double value)
 
 void	ft_for_float(t_str *ind, char *str, t_struct *flags, t_float *number)
 {
-	while (ind->j <= flags->precision)
+	while (ind->j <= flags->p)
 	{
 		str[ind->i] = number->fract[MAX_FRACT_SIZE - ind->j] + '0';
 		++ind->j;
@@ -52,7 +52,7 @@ void	ft_for_float(t_str *ind, char *str, t_struct *flags, t_float *number)
 	}
 }
 
-char	*f_value_maker(t_struct *infrom, char *buffer)
+char	*f_value_maker(t_struct *infrom)
 {
 	return (infrom->govno);
 }
@@ -65,22 +65,21 @@ int		f_len(t_struct *inf)
 	len = ft_strlen(inf->govno);
 	if (inf->plus == 1 || inf->value_f < 0)
 	{
-		inf->value_is_neg = (inf->value_f < 0) ? 1 : 0;
+		inf->nv = (inf->value_f < 0) ? 1 : 0;
 		len += 1;
 	}
 	if (inf->space && (!inf->minus && inf->value_f > 0))
 		len += 1;
 	if (inf->space && (inf->minus && inf->value_f > 0))
 		len += 1;
-	if (inf->value_is_neg && inf->value_f == -0 && !inf->nan_or_inf)
+	if (inf->nv && inf->value_f == -0 && !inf->nan_or_inf)
 		len += 1;
 	return (len);
 }
 
-int		ft_value_f(t_struct *inf, va_list list, int i)
+int		ft_value_f(t_struct *inf, va_list list)
 {
 	int		len;
-	char	*str;
 
 	len = 0;
 	inf->value_f = (inf->l) ? va_arg(list, long double)\

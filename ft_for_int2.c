@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_int2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 20:14:59 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:09:52 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-char	*c_value_maker(t_struct *inf, char *buffer)
+char	*c_value_maker(t_struct *inf)
 {
 	char *str;
 
@@ -22,7 +22,7 @@ char	*c_value_maker(t_struct *inf, char *buffer)
 	return (str);
 }
 
-char	*x_value_maker(t_struct *inf, char *buffer)
+char	*x_value_maker(t_struct *inf)
 {
 	char *str;
 
@@ -39,7 +39,7 @@ char	*x_value_maker(t_struct *inf, char *buffer)
 	return (str);
 }
 
-char	*o_value_maker(t_struct *inf, char *buffer)
+char	*o_value_maker(t_struct *inf)
 {
 	char *str;
 
@@ -56,7 +56,7 @@ char	*o_value_maker(t_struct *inf, char *buffer)
 	return (str);
 }
 
-char	*u_value_maker(t_struct *inf, char *buffer)
+char	*u_value_maker(t_struct *inf)
 {
 	char *str;
 
@@ -73,7 +73,7 @@ char	*u_value_maker(t_struct *inf, char *buffer)
 	return (str);
 }
 
-char	*d_value_maker(t_struct *inf, char *buffer)
+char	*d_value_maker(t_struct *inf)
 {
 	char *str;
 

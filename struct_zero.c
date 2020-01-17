@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct_zero.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:19:58 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 19:30:31 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	struct_zero(t_struct *inf)
 	inf->zero = 0;
 	inf->type = '\0';
 	inf->width = 0;
-	inf->precision = 0;
+	inf->p = 0;
 	inf->stopflags = 0;
 	inf->h = 0;
 	inf->hh = 0;

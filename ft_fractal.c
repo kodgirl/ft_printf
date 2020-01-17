@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fractal.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:26:20 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/16 16:46:14 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 19:33:22 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ char	*float_tostr(t_float *number, t_struct *flags)
 	ind.i = 0;
 	ind.j = 1;
 	size_int = ft_sizeint(number->integer, flags->value_f);
-	if (flags->precision == 0 && !flags->dack_prec)
-		flags->precision = 6;
-	str = ft_memalloc(size_int + flags->precision + 2);
+	if (flags->p == 0 && !flags->dack_prec)
+		flags->p = 6;
+	str = ft_memalloc(size_int + flags->p + 2);
 	while (ind.i < size_int)
 	{
 		str[ind.i] = number->integer[size_int - ind.i - 1] + '0';
 		++ind.i;
 	}
-	if (!flags->precision && flags->dack_prec &&\
+	if (!flags->p && flags->dack_prec &&\
 			number->fract[MAX_FRACT_SIZE - 1] >= 5)
 		str[ind.i - 1] += 1;
 	else if (!flags->dack_prec || flags->sharp == 1)

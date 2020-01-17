@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   string_maker.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:12:19 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 15:33:09 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:32:40 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@ void	width_and_precision(t_struct *inf, int len)
 {
 	if (inf->type == 's')
 		return ;
-	if (inf->width > inf->precision)
+	if (inf->width > inf->p)
 		inf->final_size = inf->width;
 	else
 	{
-		inf->final_size = inf->precision;
+		inf->final_size = inf->p;
 		if ((inf->type == 'X' || inf->type == 'x') &&\
 						inf->sharp && inf->value_d != 0)
 			inf->final_size += 2;
 	}
 	if (inf->final_size < len)
 		inf->final_size = len;
-	inf->final_size = (inf->type == 'p' && inf->precision > len)\
-								? inf->precision + 2 : inf->final_size;
+	inf->final_size = (inf->type == 'p' && inf->p > len)\
+								? inf->p + 2 : inf->final_size;
 }
 
 int		flag_corrector(t_struct *inf)
@@ -70,26 +70,27 @@ int		va_value(t_struct *inf, va_list list, int i)
 	else if (inf->type == 'x' || inf->type == 'X')
 		len = ft_value_x(inf, list, i);
 	else if (inf->type == 'c' || inf->type == '%')
-		len = ft_value_c(inf, list, i);
+		len = ft_value_c(inf, list);
 	else if (inf->type == 's')
-		len = ft_value_s(inf, list, i);
+		len = ft_value_s(inf, list);
 	else if (inf->type == 'p')
-		len = ft_value_p(inf, list, i);
+		len = ft_value_p(inf, list);
 	else if (inf->type == 'f')
-		len = ft_value_f(inf, list, i);
+		len = ft_value_f(inf, list);
 	return (len);
 }
 
-void	ft_make_arg(t_struct *inf, t_buff *buff_size, int len)
+void	ft_make_arg(t_struct *inf, int len)
 {
 	char *buffer;
 	char *str;
 
-	buffer = value_maker(inf, buffer);
+	buffer = NULL;
+	buffer = value_maker(inf);
 	if (inf->type != 's')
 		str = word_maker(inf, buffer, len);
 	else
-		str = str_maker(inf, buffer, len);
+		str = str_maker(inf, buffer);
 	write(1, str, inf->final_size);
 	if (!inf->nan_or_inf)
 		free(buffer);
@@ -108,7 +109,7 @@ int		ft_value_maker(t_struct *inf, t_buff *buff_size, va_list list)
 	i = flag_corrector(inf);
 	len = va_value(inf, list, i);
 	width_and_precision(inf, len);
-	ft_make_arg(inf, buff_size, len);
+	ft_make_arg(inf, len);
 	buff_size->size_of_all += inf->final_size;
 	free(inf);
 	return (0);

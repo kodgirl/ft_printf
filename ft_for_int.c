@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_int.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/11 18:52:40 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:26:06 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	us_int_len(unsigned short int value, t_struct *inf)
 	i = 0;
 	if (value == 0)
 	{
-		if (inf->plus && !inf->value_is_neg)
+		if (inf->plus && !inf->nv)
 			i++;
 		if (!inf->dack_prec)
 			i++;
@@ -47,7 +47,7 @@ int	ul_int_len(unsigned long int value, t_struct *inf)
 	i = 0;
 	if (value == 0)
 	{
-		if (inf->plus && !inf->value_is_neg)
+		if (inf->plus && !inf->nv)
 			i++;
 		if (!inf->dack_prec)
 			i++;
@@ -75,14 +75,14 @@ int	int_len(long int value, t_struct *inf)
 	i = 0;
 	if (value == 0)
 	{
-		i += (inf->plus && !inf->value_is_neg) ? 1 : 0;
+		i += (inf->plus && !inf->nv) ? 1 : 0;
 		i += (!inf->dack_prec || inf->sharp) ? 1 : 0;
 		return (i);
 	}
 	else if (value < 0)
 	{
 		i++;
-		inf->value_is_neg = 1;
+		inf->nv = 1;
 	}
 	else
 	{

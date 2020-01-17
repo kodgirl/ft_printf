@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printf.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 18:07:16 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/16 16:47:48 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:36:32 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 typedef struct				s_str
 {
-	size_t					i;
-	size_t					j;
+	int					i;
+	int					j;
 }							t_str;
 
 typedef struct				s_cat
@@ -47,7 +47,7 @@ typedef struct				s_float
 	int						fract_length;
 }							t_float;
 
-typedef union				s_print
+typedef union				u_print
 {
 	long double				number;
 	struct
@@ -91,8 +91,8 @@ typedef struct				s_struct
 	int						zero;
 	int						stopflags;
 	int						width;
-	int						widthisneg;
-	int						precision;
+	int						wg;
+	int						p;
 	unsigned long long int	value_d;
 	long double				value_f;
 	unsigned char			value_hex[25];
@@ -100,7 +100,7 @@ typedef struct				s_struct
 	int						hh;
 	int						l;
 	int						ll;
-	int						value_is_neg;
+	int						nv;
 	int						dack_prec;
 	int						null_for_c;
 	int						s_len;
@@ -141,23 +141,22 @@ int							ft_width(t_struct *inf, char *format,\
 t_buff *buff_size, va_list list);
 int							ft_modifiers(char *format, t_struct *inf,\
 t_buff *buff_size, va_list list);
-void						ft_make_arg(t_struct *inf,\
-t_buff *buff_size, int len);
+void						ft_make_arg(t_struct *inf, int len);
 int							ft_value_maker(t_struct *inf,\
 t_buff *buff_size, va_list list);
 int							ft_value_d(t_struct *inf, va_list list, int i);
 int							ft_value_u(t_struct *inf, va_list list, int i);
-int							ft_value_f(t_struct *inf, va_list list, int i);
+int							ft_value_f(t_struct *inf, va_list list);
 int							int_len(long int value, t_struct *inf);
 int							ul_int_len(unsigned long int value,\
 t_struct *inf);
 int							us_int_len(unsigned short int value,\
 t_struct *inf);
-char						*d_value_maker(t_struct *inf, char *buffer);
-char						*u_value_maker(t_struct *inf, char *buffer);
-char						*o_value_maker(t_struct *inf, char *buffer);
-char						*s_value_maker(t_struct *inf, char *buffer);
-char						*p_value_maker(t_struct *infrom, char *buffer);
+char						*d_value_maker(t_struct *inf);
+char						*u_value_maker(t_struct *inf);
+char						*o_value_maker(t_struct *inf);
+char						*s_value_maker(t_struct *inf);
+char						*p_value_maker(t_struct *infrom);
 int							ft_value_o(t_struct *inf, va_list list, int i);
 int							ft_value_x(t_struct *inf, va_list list, int i);
 char						*word_maker(t_struct *inf,\
@@ -194,22 +193,19 @@ char						*ft_strfromcat(char *s1, const char *s2,\
 size_t len, size_t n);
 int							hex_len(long int value, t_struct *inf);
 char						*hex_rev(t_struct *inf);
-char						*x_value_maker(t_struct *inf, char *buffer);
+char						*x_value_maker(t_struct *inf);
 int							ft_diouxx(t_struct *inf, char sym);
 int							ft_csp(t_struct *inf, char sym);
-int							ft_value_c(t_struct *inf, va_list list, int i);
-char						*c_value_maker(t_struct *inf, char *buffer);
+int							ft_value_c(t_struct *inf, va_list list);
+char						*c_value_maker(t_struct *inf);
 void						flag_clear(t_struct *inf);
-int							ft_value_s(t_struct *inf, va_list list, int i);
-char						*str_maker(t_struct *inf, char *buffer, int len);
-char						*ft_widther(t_struct *inf, char *buffer,\
-int len);
-char						*ft_minus_widther(t_struct *inf, char *buffer,\
-int len);
-int							ft_value_p(t_struct *inf, va_list list, int i);
-char						*p_value_maker(t_struct *infrom, char *buffer);
+int							ft_value_s(t_struct *inf, va_list list);
+char						*str_maker(t_struct *inf, char *buffer);
+char						*ft_widther(t_struct *inf, char *buffer);
+char						*ft_minus_widther(t_struct *inf, char *buffer);
+int							ft_value_p(t_struct *inf, va_list list);
 int							f_len(t_struct *inf);
-char						*f_value_maker(t_struct *infrom, char *buffer);
+char						*f_value_maker(t_struct *infrom);
 void						ft_beatuful_mass(char *long_num, int buf_size);
 void						ft_mass_sum(char *long_num1, char *long_num2);
 void						ft_longnum_to_2power(char *long_num, int power);
@@ -231,12 +227,18 @@ char						*float_tostr(t_float *number, t_struct *flags);
 int							ft_sizeint(char *integer, long double value);
 void						print_float_number(t_float *number, int len_int,\
 int len_fract);
-char						*value_maker(t_struct *inf, char *buffer);
+char						*value_maker(t_struct *inf);
 char						*word_maker(t_struct *inf, char *buffer, int len);
-char						*start_by_width(t_struct *inf, char *buffer, int len);
+char						*start_by_width(t_struct *inf, char *buffer,\
+int len);
 char						*start_by_neg_width2(t_struct *inf, char *str,\
 char *buffer, int len, int i);
-char						*start_by_neg_width(t_struct *inf, char *buffer, int len);
-void						ft_for_float(t_str *ind, char *str, t_struct *flags, t_float *number);
+char						*start_by_neg_width(t_struct *inf, char *buffer,\
+int len);
+void						ft_for_float(t_str *ind, char *str,\
+t_struct *flags, t_float *number);
+void						ft_spacer_p2(char *s1, int i, t_struct *j, int len);
+char						*ft_flags1(char *str, t_struct *inf, int i,\
+int len);
 
 #endif

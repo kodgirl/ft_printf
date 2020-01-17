@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/05 14:03:07 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 17:28:15 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:40:13 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,73 +35,62 @@ char	*ft_zeroes(char *s1, t_struct *inf, int len)
 
 char	*ft_flags(char *str, t_struct *inf, int i, int len)
 {
-	if (inf->value_is_neg && (inf->type != 'u' && inf->type != 'o'))
+	if (inf->nv && (inf->type != 'u' && inf->type != 'o'))
 	{
-		if (inf->precision > len && !inf->zero && inf->precision > inf->width)
+		if (inf->p > len && !inf->zero && inf->p > inf->width)
 			inf->final_size += 1;
 		str[i] = '-';
 	}
-	else if (inf->plus && !inf->value_is_neg)
+	else if (inf->plus && !inf->nv)
 	{
-		if (inf->precision > len && inf->precision > inf->width)
+		if (inf->p > len && inf->p > inf->width)
 			inf->final_size += 1;
 		str[i] = '+';
 	}
-	else if (!inf->plus && !inf->value_is_neg && inf->space)
+	else if (!inf->plus && !inf->nv && inf->space)
 	{
-		if ((inf->precision > inf->width && inf->precision > len) || (inf->value_d == 0 && !inf->width && !inf->nan_or_inf))
+		if ((inf->p > inf->width && inf->p > len)\
+			|| (inf->value_d == 0 && !inf->width && !inf->nan_or_inf))
 			inf->final_size += 1;
 		str[i] = ' ';
 	}
-	else if (!inf->plus && !inf->value_is_neg && inf->sharp && inf->value_d != 0)
-	{
-		if (inf->precision > len && !inf->widthisneg && inf->width != 0 && inf->width > inf->precision)
-			if (inf->type != 'X' && inf->type != 'x')
-				return (str);
-		str[i] = 48;
-		if ((inf->type == 'x' && inf->value_d != 0) || (inf->type == 'X' && inf->value_d != 0))
-			str[++i] = inf->type;
-	}
+	else if (!inf->plus && !inf->nv && inf->sharp && inf->value_d != 0)
+		ft_flags1(str, inf, i, len);
 	else
 		str = 0;
 	return (str);
 }
 
-char	*ft_spacer(char *s1, char sym, t_struct *inf, int len)
+char	*ft_spacer(char *s1, char sym, t_struct *j, int len)
 {
 	int i;
 
 	i = 0;
-	if (inf->precision > len)
+	if (j->p > len)
 	{
-		if ((inf->type == 'x' || inf->type == 'X') && inf->sharp && inf->width > inf->precision && inf->precision != 0 && inf->value_d != 0)
-			inf->precision += 1;
-		while (i < inf->width - inf->precision)
+		if ((j->type == 'x' || j->type == 'X')\
+		&& j->sharp && j->width > j->p && j->p != 0 && j->value_d != 0)
+			j->p += 1;
+		while (i < j->width - j->p)
 			s1[i++] = sym;
-		inf->castilok = (!ft_flags(s1, inf, i - 1, len)) ? 1 : 0;
+		j->castilok = (!ft_flags(s1, j, i - 1, len)) ? 1 : 0;
 	}
-	else if (inf->width > len)
+	else if (j->width > len)
 	{
-		if (!inf->zero)
+		if (!j->zero)
 		{
-			if ((inf->value_is_neg && inf->zero) || (inf->value_is_neg && inf->width - len == 1 && inf->type != 'f') || (inf->width - len == len && (inf->plus || inf->zero || inf->minus || inf->space)))
-				len++;
-			while (i < inf->width - len)
-				s1[i++] = sym;
-			if (inf->width - len - inf->space == 1 && inf->value_d == 0)
-				inf->space = 0;
-			ft_flags(s1, inf, i, len);
+			ft_spacer_p2(s1, i, j, len);
 		}
 		else
-			return (ft_zeroes(s1, inf, len));
+			return (ft_zeroes(s1, j, len));
 	}
 	return (0);
 }
 
 char	*ft_spacer_negative(char *s1, char sym, t_struct *inf)
 {
-	size_t i;
-	size_t g;
+	int		i;
+	size_t	g;
 
 	i = 0;
 	g = 0;
@@ -117,11 +106,11 @@ char	*ft_spacer_negative(char *s1, char sym, t_struct *inf)
 
 char	*ft_negative_flags(char *str, t_struct *inf)
 {
-	if (inf->value_is_neg)
+	if (inf->nv)
 		str[0] = '-';
-	else if (inf->plus && !inf->value_is_neg)
+	else if (inf->plus && !inf->nv)
 		str[0] = '+';
-	else if (!inf->plus && !inf->value_is_neg && inf->space)
+	else if (!inf->plus && !inf->nv && inf->space)
 		str[0] = ' ';
 	else if ((inf->type == 'o' || inf->type == 'X' || inf->type == 'x')\
 	&& inf->sharp && !inf->dack_prec && inf->value_d != 0)

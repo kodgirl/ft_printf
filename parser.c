@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 17:44:25 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 19:45:08 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,17 @@ int	ft_width(t_struct *inf, char *format, t_buff *buff_size, va_list list)
 		{
 			if (format[i - 1] == '-' || (inf->minus && inf->zero)\
 										|| (inf->minus && inf->plus))
-				inf->widthisneg = 1;
+				inf->wg = 1;
 			if ((inf->type == 'o' || inf->type == 'f') && inf->minus)
-				inf->widthisneg = 1;
-			if (inf->widthisneg)
+				inf->wg = 1;
+			if (inf->wg)
 				inf->zero = 0;
 			inf->width = ft_new_atoi(format, i, inf->stop);
 			if (inf->width > 0)
 				break ;
 		}
 	}
-	if (inf->precision > inf->width)
+	if (inf->p > inf->width)
 		inf->zero = 0;
 	ft_modifiers(format, inf, buff_size, list);
 	return (0);
@@ -74,9 +74,9 @@ int	ft_precision(t_struct *inf, char *format,\
 	{
 		if (format[inf->givup] == '.')
 		{
-			inf->precision = ft_new_atoi(format,\
+			inf->p = ft_new_atoi(format,\
 					inf->givup + 1, inf->fuckup);
-			if (inf->precision == 0)
+			if (inf->p == 0)
 				inf->dack_prec = 2;
 			inf->zero = ((inf->type == 's' || inf->type == 'f')\
 													&& inf->zero) ? 1 : 0;

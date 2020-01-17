@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+         #
+#    By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/22 16:20:25 by rgwayne-          #+#    #+#              #
-#    Updated: 2020/01/16 16:02:52 by bjasper          ###   ########.fr        #
+#    Updated: 2020/01/16 20:06:07 by rgwayne-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 %.o: %.c
-	gcc -c $< -o $@
+	gcc $(GCC_FLAGS) -c $< -o $@
 
 $(NAME): $(OBJ)
 	ar rc $(NAME) $(OBJ)

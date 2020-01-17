@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for_c.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 17:32:52 by rgwayne-          #+#    #+#             */
-/*   Updated: 2020/01/16 15:02:05 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 20:28:27 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	flag_clear(t_struct *inf)
 	inf->sharp = 0;
 	if (inf->type != '%')
 		inf->zero = 0;
-	inf->precision = 0;
+	inf->p = 0;
 	inf->dack_prec = 0;
 }
 
-int		ft_value_c(t_struct *inf, va_list list, int i)
+int		ft_value_c(t_struct *inf, va_list list)
 {
 	int len;
 

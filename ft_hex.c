@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_hex.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjasper <bjasper@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rgwayne- <rgwayne-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/14 16:36:50 by bjasper           #+#    #+#             */
-/*   Updated: 2020/01/16 16:15:16 by bjasper          ###   ########.fr       */
+/*   Updated: 2020/01/16 19:36:57 by rgwayne-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		hex_len(long int value, t_struct *inf)
 	i = 0;
 	if (value == 0)
 	{
-		if (inf->plus && !inf->value_is_neg)
+		if (inf->plus && !inf->nv)
 			i++;
 		if (!inf->dack_prec || inf->sharp)
 			i++;
